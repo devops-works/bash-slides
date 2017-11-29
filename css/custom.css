@@ -1,0 +1,13 @@
+.reveal section img { 
+  background:none;
+  border:none;
+  box-shadow:none;
+}
+
+.reveal code {
+  background:#fefefe;
+}
+
+.reveal pre {
+  background:#fefefe;
+}

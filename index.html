@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<!-- <link rel="stylesheet" href="css/theme/moon.css"> -->
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai-sublime.css">
+
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+    <div class="reveal">
+    	<header style="position: absolute;top: 50px; left: 50px; z-index:500; font-size:64px;"></header>
+			<div class="slides">
+
+				<section>
+					<img src="images/bash.png">
+				</section>
+
+				<section data-state="header1">
+					<style>.header1 header:after { content: "Programme"; }</style>
+
+					<pre><code class="bash" data-trim data-noescape>
+
+$ programme
+bash: programme: command not found
+
+					</code></pre>
+					<aside class="notes">
+Pas de programme
+					</aside>
+				</section>
+
+				<section data-state="headerhist">
+					<style>.headerhist header:after { content: "Historique"; }</style>
+					<p align="left">
+						<code>&uarr;</code> commande précedente<br />
+						<code>&darr;</code> commande suivante<br />
+						<code>!!&#x21A9;</code> ré-exécuter la commande précédente<br />
+						<code>!num&#x21A9;</code> ré-exécuter la commande numéro <em>num</em><br />
+						<code>$HISTIGNORE</code> patterns à ignorer<br />
+						<code>$HISTCONTROL</code> "ignorespace" et "ignoredups"<br />
+					</p>
+					<aside class="notes">
+Il y a aussi des raccourcis pour recall + edit (left as an exercise)<br />
+man bash ftw
+					</aside>					
+				</section>
+
+				<section data-state="headerformat">
+					<style>.headerformat header:after { content: "Historique timestampé"; }</style>
+					<pre style="width: 110%"><code class="bash" data-trim data-noescape>
+[bbl@dw ~]$ ls
+[bbl@dw ~]$ history 
+    1  ls
+    2  history 
+[bbl@dw ~]$ export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S - "
+[bbl@dw ~]$ history
+    1  2017-11-28 16:40:04 - ls
+    2  2017-11-28 16:40:06 - history 
+    3  2017-11-28 16:40:16 - export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S - "
+    4  2017-11-28 16:40:22 - history
+[bbl@dw ~]$ 
+					</code></pre>
+					<aside class="notes">
+					</aside>					
+				</section>
+				<section data-state="headershort">
+					<style>.headershort header:after { content: "Raccourcis d'édition"; }</style>
+					<p align="left">
+						<code>^a</code> début de ligne<br />
+						<code>^e</code> fin de ligne<br />
+						<code>^k</code> couper jusqu'à la fin de ligne<br />
+						<code>^y</code> coller<br />
+						<code>^w</code> couper le mot à gauche<br />
+						<code>^u</code> kill jusqu'au début de ligne (passwords !)<br />
+						<code>^l</code> clear<br />
+						<code>Meta-#</code> commenter la ligne courante<br />
+					</p>
+					<aside class="notes">
+						Shotcuts emacs
+						<code>^A / ^E</code> navigation rapide SOL/EOL<br />
+						<code>^K / ^Y / ^W</code> paste dans le shell courant seulement !<br />
+						<code>^Y</code> coller<br />
+						<code>^W</code> couper le mot à gauche</p>
+						<code>^U</code> pour les gros doigts<br />
+						<code>Meta-#</code> commenter la ligne courante et reste dans l'historique<br />
+TIP: généralement, si la commande commence par un espace, elle n'apparait pas dans l'historique
+					</aside>					
+				</section>
+
+				<section data-state="headernav">
+					<style>.headernav header:after { content: "Navigation"; }</style>
+					<p align="left">
+						<code>pushd</code> ajoute le répertoire courant à la stack<br />
+						<code>popd</code> revient dans le répertoire précédent de la pile<br />
+						<code>dirs -l</code> liste la pile<br />
+						<code>cd</code> retourner dans le $HOME (a.k.a. <code>cd ~</code>)<br />
+						<code>cd -</code> revient dans le répertoire précédent (bascule)<br />
+						<code>$CDPATH</code> chemins automatiques<br />						
+					</p>
+					<aside class="notes">
+expliquer commandes internes => man bash
+					</aside>
+				</section>
+
+				<section data-state="headerjob">
+					<style>.headerjob header:after { content: "Job control"; }</style>
+					<p align="left">
+						<code>^Z</code> SIGSTOP<br />
+						<code>^C</code> SIGINT<br />
+						<code>^D</code> SIGHUP (délog !)<br />
+						<code>jobs</code> liste les jobs du shell en cours<br />
+						<code>bg [%job]</code> SIGCONT et background<br />						
+						<code>fg [%job]</code> SIGCONT et foreground<br />
+						<code>programme &amp;</code> lance un process en bg<br />
+					</p>
+Voir <code>man 7 signal</code>
+					<aside class="notes">
+Démo fg/bg/jobs etc...
+					</aside>
+				</section>
+
+				<section data-state="headerjob">
+					<style>.headerjob header:after { content: "Job control"; }</style>
+					<p>
+						Quand on se deloggue (ou perd la connexion), les process en arrière plan sont (généralement) terminés.
+					</p>
+					<p align="left">
+						<code>disown [%job]</code> permet de détacher un job du shell<br />
+						<code>nohup programme &amp;</code> même chose à l'avance<br />
+					</p>
+					<aside class="notes">
+disown permet au process/job de survivre à la mort brutale du shell  
+					</aside>
+				</section>
+
+				<section data-state="headertmux">
+					<style>.headertmux header:after { content: "Tmux"; }</style>
+					<img src="images/tmux.png">
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-state="headertmux">
+					<style>.headertmux header:after { content: "Tmux"; }</style>
+					<p>
+					<p align="left">
+						<code>^b</code> préfixe avant chaque commande ci-dessous<br />
+						<br />
+						<code>c</code> créer une fenêtre<br />
+						<code>p</code> terminal précédent<br />
+						<code>n</code> terminal suivant<br />
+						<code>,</code> renommer terminal<br />
+						<code>d</code> détacher tmux<br />
+					</p>		
+					<aside class="notes">
+Le prefixe peut être Ctrl-x selon config
+					</aside>
+				</section>
+
+
+				<section data-state="headertmux">
+					<style>.headertmux header:after { content: "Tmux"; }</style>
+					<p>
+					<p align="left">
+						<code>tmux ls</code> liste des sessions tmux<br />
+						<code>tmux attach [-t num]</code> réattache le dernier tmux (ou la session <em>num</em>)<br />
+					</p>		
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-state="headerio1">
+					<style>.headerio1 header:after { content: "Entrées/Sorties"; }</style>
+					<p>Chaque process a
+						<ul>
+							<li>une entrée standard (<b>0</b>, a.k.a. <b>STDIN</b>)</li>
+							<li>une sortie standard (<b>1</b>, a.k.a. <b>STDOUT</b>)</li>
+							<li>une sortie d'erreur standard (<b>2</b>, a.k.a <b>STDERR</b>)</li>
+						</ul>
+					</p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-state="headerio2">
+					<style>.headerio2 header:after { content: "Entrées/Sorties"; }</style>
+					<img src="images/process_io.svg" width="250%">
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-state="headerio3">
+					<style>.headerio3 header:after { content: "Entrées/Sorties"; }</style>
+					<p>On peut rediriger ces entrées sorties, ou les combiner entre elles</p>
+					<p align="left" style="width: 120%">
+						<code>a | b</code> envoyer STDOUT de <em>a</em> vers STDIN de <em>b</em><br />
+						<code>a &gt; f</code> envoyer STDOUT de <em>a</em> dans le fichier <em>f</em><br />
+						<code>a 2&gt; f</code> envoyer STDERR de <em>a</em> dans le fichier <em>f</em><br />
+						<code>a &gt; f 2&gt; e</code> envoyer STDERR de <em>a</em> dans <em>e</em> et STDOUT dans <em>f</em><br />
+						<code>a &gt; f 2&gt;&amp;1</code> envoyer STDOUT &amp; STDERR de <em>a</em> dans le fichier <em>f</em><br />
+					</p>
+					<aside class="notes">
+Attention a coller 2 à &gt; pour la redirection de stderr !
+					</aside>
+				</section>
+
+				<section data-state="headerio1">
+					<style>.headerio1 header:after { content: "Entrées/Sorties"; }</style>
+					<img src="images/process_pipes_io.svg" width="250%" height="250%">
+				</section>
+
+				<section data-state="headergrep">
+					<style>.headergrep header:after { content: "Grep"; }</style>
+					<p align="left" style="width: 120%">
+						<code>grep regex fichier</code> attrapper une regex<br />
+						<code>grep -F texte fichier</code> attrapper du texte<br />
+						<code>grep -v ...</code> attrapper tout sauf ...<br />
+					</p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-state="headermisc">
+					<style>.headermisc header:after { content: "Divers"; }</style>
+					<p align="left" style="width: 120%">
+						<code>tr 'a' 'b'</code> transposer les caractères 'a' en 'b'<br />
+						<code>tr -d 'a'</code> supprime le caractère 'a'<br />
+						<code>head -n</code> afficher les <em>n</em> premières lignes d'un fichier<br />
+						<code>tail -n</code> afficher les <em>n</em> dernières lignes d'un fichier<br />
+						<code>wc -l</code> compter le nombre de lignes<br />			
+						<code>sort [-n] [-r]</code> trie les lignes d'un fichier (<strong>n</strong>umeric, <strong>r</strong>everse)<br />
+						<code>cut -f5,7 -d';'</code> filter les champs 5 et 7 délimités par ;<br />
+						<code>awk '{ print $5" hello "$7 }'</code> filter les champs 5 et 7 délimités par des espaces (et mettre hello au milieu)<br />
+					</p>
+					<aside class="notes">
+expliquer que si pas d'arguments, lit STDIN
+tr: example \n -> ' '<br />
+a et b peuvent être des classes de caractère<br />
+echo bbl | tr 'a-z' 'm-z,a-l' => rot13<br />
+awk plus pratique que cut -d' ' si nombre d'espaces est indéterminé<br />
+					</aside>
+				</section>
+
+				<section data-state="headergrabbag">
+					<style>.headergrabbag header:after { content: "Grabbag"; }</style>
+					<p align="left" style="width: 120%">
+						<code>echo -e "1\t2\n3"</code> -e force l'interprétation des chars spéciaux<br />
+						<code>echo -n "hello"</code> -n empèche l'impression d'un '\n' de fin<br />
+						<code>sed -i '25d' fichier</code> supprime la ligne 25 de fichier<br />
+						<code>vim +25 +d +x fichier</code> idem (éviter sur les gros fichiers)<br />
+						<code> ... | paste -sd+ | bc</code> additionner des nombres<br />
+						<code>$()</code> execute un subshell et retourne l'output<br />
+					</p>
+					<aside class="notes">
+use case de suppression de ligne: nettoyer un fichier par numéro de ligne<br />
+paste -sd+ => cumul volumetrie logs <br />
+echo "5+6" | bc<br />
+echo -e "5\n6" | paste -sd+ | bc<br />
+examiner log etc...
+echo hello | tr 'a-z' $(echo {a..z} | rev | tr -d ' ') => symétrie
+					</aside>
+				</section>
+
+				<section data-state="headerssh">
+					<style>.headerssh header:after { content: "SSH"; }</style>
+					<p>Pour la route, les escapes SSH:</p>
+					<p align="left" style="width: 120%">
+						<code>~?</code> help !<br />
+						<code>~.</code> termine la connexion<br />
+						<code>~Z</code> suspend SSH<br />
+						<code>~#</code> liste les connexions multiplexées<br />
+					</p>
+					<aside class="notes">
+Pratique quand on perd la connexion réseau et que ssh est freezé
+					</aside>
+				</section>				
+
+			</div>
+    </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					//{ src: 'plugin/markdown/marked.js' },
+					//{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
+
+
+sed -i '5d' file.txt
+
+vim +5 +d +x file
+
+head regarder la forme du truc
+
